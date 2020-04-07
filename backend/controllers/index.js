@@ -6,13 +6,36 @@ const jwtHelper = require('./jwt-helper');
 const { User } = require('../models');
 
 // Controllers
-const userControllers = require('./user');
+const userControllers     = require('./user');
+const goodControllers     = require('./good');
+const imageControllers    = require('./image');
+const categoryControllers = require('./category');
 
 
 
 // Schema
 const schema = buildSchema(`
-  ${userControllers.userSchema}
+  type Query {
+    ${userControllers.userSchema.typeQuery}
+    ${goodControllers.goodSchema.typeQuery}
+  }
+
+  type Mutation {
+    ${userControllers.userSchema.typeMutation}
+    ${goodControllers.goodSchema.typeMutation}
+  }
+
+  ${userControllers.userSchema.typeUser}
+  ${userControllers.userSchema.typeUserInput}
+
+  ${goodControllers.goodSchema.typeGood}
+  ${goodControllers.goodSchema.typeGoodInput}
+
+  ${imageControllers.imageSchema.typeImage}
+  ${imageControllers.imageSchema.typeImageInput}
+
+  ${categoryControllers.categorySchema.typeCategory}
+  ${categoryControllers.categorySchema.typeCategoryInput}
 `);
 
 
@@ -20,7 +43,12 @@ const schema = buildSchema(`
 const root = {
   // User
   createUser: userControllers.createUser,
-  login: userControllers.login
+  login: userControllers.login,
+
+  // Good
+  createGood: goodControllers.createGood,
+  getOneGood: goodControllers.getOneGood,
+  getGoods: goodControllers.getGoods,
 };
 
 

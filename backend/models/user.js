@@ -1,6 +1,6 @@
 // ORM Sequelize + MySQL
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('mysql://root:16324@localhost/online_store');
+const sequelize = require('../db.setup');
 
 class User extends Sequelize.Model { }
 User.init({
@@ -10,6 +10,3 @@ User.init({
 
 
 module.exports = User;
-
-
-sequelize.sync();

@@ -16,25 +16,26 @@ const userControllers = {
     return jwtHelper.jwt.sign({ sub: user.id, login }, jwtHelper.JWT_SECRET);
   },
 
-  userSchema: `
-    type Mutation {
-      createUser(user: UserInput): User
-    }
-
-    type Query {
+  userSchema: {
+    typeQuery: `
       login(login: String!, password: String!): String
-    }
-
-    type User {
-      id: Int,
-      login: String
-    }
-
-    input UserInput {
-      login: String,
-      password: String
-    }
-  `
+    `,
+    typeMutation: `
+      createUser(user: UserInput): User
+    `,
+    typeUserInput: `
+      input UserInput {
+        login: String,
+        password: String
+      }
+    `,
+    typeUser: `
+      type User {
+        id: Int,
+        login: String
+      }
+    `
+  }
 }
 
 module.exports = userControllers;
