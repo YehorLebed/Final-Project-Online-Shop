@@ -1,0 +1,8 @@
+.sign-page {
+  max-width: 600px;
+  margin: 50px auto;
+}
+
+.sign-page button:first-of-type {
+  margin-right: 15px;
+}

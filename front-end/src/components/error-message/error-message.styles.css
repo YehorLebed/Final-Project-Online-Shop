@@ -1,0 +1,9 @@
+.error-message .modal-content {
+  background-color: var(--danger);
+  color: #fff;
+}
+.error-message .modal-header,
+.error-message .modal-footer{
+  border: none;
+}
+

@@ -1,0 +1,23 @@
+.header {
+  padding: 10px 0;
+  background-color:var(--primary);
+  color: #fff;
+}
+
+.header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header input {
+  border: none;
+}
+
+.header a {
+  color: inherit;
+}
+
+.header a:hover {
+  text-decoration: none;
+}
