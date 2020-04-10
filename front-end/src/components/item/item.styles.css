@@ -1,3 +1,10 @@
+.item {
+  padding: 10px 5px;
+} 
+.item .card {
+  width: 16rem;
+}
+
 .item button:first-of-type {
   margin-right: 10px;
 }

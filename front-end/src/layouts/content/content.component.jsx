@@ -8,7 +8,7 @@ import { ErrorList } from '../../components';
 import './content.styles.css';
 
 const Content = ({ isLoggedIn }) => (
-  <div className="content container-fluid">
+  <div className="content container">
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route exact path="/item/:id" component={ItemPage} />

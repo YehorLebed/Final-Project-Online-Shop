@@ -1,10 +1,14 @@
 import { combineReducers } from 'redux';
+
 import promiseReducer from './promise/promise.reducer';
-import authReducer from './user/auth.reducer';
 import errorReducer from './error/error.reducer';
 
+import authReducer from './user/auth.reducer';
+import cartReducer from './cart/cart.reducer';
+
 export default combineReducers({
-  responsedData: promiseReducer,
   userData: authReducer,
+  cartData: cartReducer,
+  responsedData: promiseReducer,
   errors: errorReducer
 }); 

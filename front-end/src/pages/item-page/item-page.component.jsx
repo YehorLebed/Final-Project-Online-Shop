@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './item-page.styles.css';
 
 const ItemPage = (props) => {
+
+  
 
   return (<>
     <h1 className="item-page">Item-page</h1>

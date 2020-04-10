@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+import { connect } from 'react-redux';
+import { actionAddToCart } from '../../redux/cart/cart.actions';
 import { Link } from 'react-router-dom';
+
 import './item.styles.css';
 
-const Item = ({ id, imgSrc, title, text, price }) => {
-
-
+const Item = ({ id, imgSrc, title, text, price, onAddToCart }) => {
 
   return (
-    <div className="item" style={{ padding: '5px' }}>
-      <div className="card" style={{ width: '24rem' }}>
+    <div className="item">
+      <div className="card">
         <img src={imgSrc} className="card-img-top" alt="item" />
         <div className="card-body">
           <h5 className="card-title">{title}</h5>
           <pre className="card-text">{text}</pre>
           <h4 className="cart-price">${price}</h4>
-          <button href="#" className="btn btn-warning">Add to cart</button>
+          <Link to="/cart">
+            <button className="btn btn-warning" onClick={() => onAddToCart(id, title, price)}>
+              Add to cart
+          </button>
+          </Link>
           <Link to={`/item/${id}`}>
-            <button href="#" className="btn btn-primary">More info</button>
+            <button className="btn btn-primary">More info</button>
           </Link>
         </div>
       </div>
@@ -24,4 +30,8 @@ const Item = ({ id, imgSrc, title, text, price }) => {
   );
 }
 
-export default Item;
+const mapDispatchToProps = {
+  onAddToCart: actionAddToCart
+}
+
+export default connect(null, mapDispatchToProps)(Item);

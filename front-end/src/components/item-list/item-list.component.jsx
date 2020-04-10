@@ -5,7 +5,7 @@ import './item-list.styles.css';
 const ItemList = ({ items }) => {
 
   return (
-    <ul className="item-list d-flex flex-wrap justify-content-center">
+    <ul className="item-list d-flex flex-wrap justify-content-between">
       {items.map(item => <Item key={item.id} {...item} />)}
     </ul>
   );
