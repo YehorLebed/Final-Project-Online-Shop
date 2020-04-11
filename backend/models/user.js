@@ -1,4 +1,3 @@
-// ORM Sequelize + MySQL
 const Sequelize = require('sequelize');
 const sequelize = require('../db.setup');
 

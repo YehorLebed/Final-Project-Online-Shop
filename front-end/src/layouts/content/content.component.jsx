@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { HomePage, CartPage, ItemPage, SignPage } from '../../pages';
+import { HomePage, CartPage, ItemPage, SignPage, AdminAddItemPage } from '../../pages';
 import { ErrorList } from '../../components';
 import './content.styles.css';
 
@@ -15,6 +15,8 @@ const Content = ({ isLoggedIn }) => (
 
       <Route exact path="/sign" render={() => !isLoggedIn ? <SignPage /> : <Redirect to="/" />} />
       <Route exact path="/cart" component={CartPage} />
+
+      <Route exact path="/admin/add-item" component={AdminAddItemPage} />
     </Switch>
     <ErrorList />
   </div>

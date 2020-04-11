@@ -1,4 +1,3 @@
-// ORM Sequelize + MySQL
 const Sequelize = require('sequelize');
 const sequelize = require('../db.setup');
 
@@ -8,6 +7,5 @@ Good.init({
   description: Sequelize.TEXT,
   price: Sequelize.FLOAT
 }, { sequelize, modelName: 'good' });
-
 
 module.exports = Good;

@@ -1,10 +1,11 @@
 const { Good } = require('../models');
+const { image } = require('./image');
 
 const goodControllers = {
 
-  async getGoods(query) {
-    const goods = await Good.findAll(query);
-    if (!goods) throw new Error('No goods found by this filter');
+  async getGoods() {
+    const goods = await Good.findAll();
+    if (!goods) throw new Error('No goods found');
     return goods;
   },
 
@@ -14,28 +15,34 @@ const goodControllers = {
     return good;
   },
 
-  async createGood(good) {
-    // ...
+  async createGood({ good }) {
+    const goodExists = await Good.findOne({ where: { name: good.name } });
+    if (goodExists) throw new Error('Good with this name already exists');
+    const newGood = await Good.create(good);
+    await newGood.createImage({ fileName: good.imageFileName });
+    return newGood;
   },
-  // update Good, DeleteGood
 
   goodSchema: {
+
     typeQuery: `
-      getGoods(query: String): Good
-      getOneGood(query: String): [Good]
+      getOneGood(query: String): Good
+      getGoods: [Good]
     `,
+
     typeMutation: `
       createGood(good: GoodInput): Good
     `,
+
     typeGoodInput: `
-      type GoodInput {
+      input GoodInput {
         name: String,
         description: String
         price: Float
-        categories: [Category]
-        images: [Image]
+        imageFileName: String
       }
     `,
+
     typeGood: `
       type Good {
         id: Int,
@@ -43,7 +50,6 @@ const goodControllers = {
         name: String,
         description: String
         price: Float
-        categories: [Category]
         images: [Image]
       }
     `

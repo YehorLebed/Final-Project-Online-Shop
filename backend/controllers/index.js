@@ -6,36 +6,35 @@ const jwtHelper = require('./jwt-helper');
 const { User } = require('../models');
 
 // Controllers
-const userControllers     = require('./user');
-const goodControllers     = require('./good');
-const imageControllers    = require('./image');
-const categoryControllers = require('./category');
+const userControllers = require('./user');
+const goodControllers = require('./good');
+const imageControllers = require('./image');
 
 
 
 // Schema
 const schema = buildSchema(`
-  type Query {
-    ${userControllers.userSchema.typeQuery}
-    ${goodControllers.goodSchema.typeQuery}
-  }
-
+  
   type Mutation {
     ${userControllers.userSchema.typeMutation}
     ${goodControllers.goodSchema.typeMutation}
+    ${imageControllers.imageSchema.typeMutation}
+  }
+
+  type Query {
+    ${userControllers.userSchema.typeQuery}
+    ${goodControllers.goodSchema.typeQuery}
+    ${imageControllers.imageSchema.typeQuery}
   }
 
   ${userControllers.userSchema.typeUser}
-  ${userControllers.userSchema.typeUserInput}
-
   ${goodControllers.goodSchema.typeGood}
-  ${goodControllers.goodSchema.typeGoodInput}
-
   ${imageControllers.imageSchema.typeImage}
-  ${imageControllers.imageSchema.typeImageInput}
 
-  ${categoryControllers.categorySchema.typeCategory}
-  ${categoryControllers.categorySchema.typeCategoryInput}
+
+  ${userControllers.userSchema.typeUserInput}
+  ${goodControllers.goodSchema.typeGoodInput}
+  ${imageControllers.imageSchema.typeImageInput}
 `);
 
 

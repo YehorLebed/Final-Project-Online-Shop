@@ -1,34 +1,34 @@
-const { Category } = require('../models');
+// const { Category } = require('../models');
 
-const categoryControllers = {
+// const categoryControllers = {
 
-  categorySchema: {
-    typeQuery: `
+//   categorySchema: {
+//     typeQuery: `
       
-    `,
-    typeMutation: `
+//     `,
+//     typeMutation: `
       
-    `,
-    typeCategoryInput: `
-      type CategoryInput {
-        name: String,
-        image: Image,
-        goods: [Good],
-        parent: Category,
-        subCategories: [Category]
-      }
-    `,
-    typeCategory: `
-      type Category {
-        id: Int,
-        name: String,
-        image: Image,
-        goods: [Good],
-        parent: Category,
-        subCategories: [Category],
-      }
-    `
-  }
-}
+//     `,
+//     typeCategoryInput: `
+//       type CategoryInput {
+//         name: String,
+//         image: Image,
+//         goods: [Good],
+//         parent: Category,
+//         subCategories: [Category]
+//       }
+//     `,
+//     typeCategory: `
+//       type Category {
+//         id: Int,
+//         name: String,
+//         image: Image,
+//         goods: [Good],
+//         parent: Category,
+//         subCategories: [Category],
+//       }
+//     `
+//   }
+// }
 
-module.exports = categoryControllers;
+// module.exports = categoryControllers;
