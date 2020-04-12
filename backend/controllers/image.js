@@ -13,7 +13,7 @@ const imageControllers = {
     if (imageExists) throw new Error('Image with current url already exists');
     return await Image.create(image);
   },
-
+  
   imageSchema: {
     typeQuery: `
       getImages(query: String): [Image]
@@ -23,7 +23,8 @@ const imageControllers = {
     `,
     typeImageInput: `
       input ImageInput {
-        fileName: String,
+        filename: String,
+        originalname: String,
         good: Int,
         user: Int,
       }
@@ -31,8 +32,8 @@ const imageControllers = {
     typeImage: `
       type Image {
         id: Int
-        url: String,
-        fileName: String
+        filename: String
+        originalname: String
       }
     `
   }

@@ -1,7 +1,13 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../db.setup');
 
-class Good extends Sequelize.Model { };
+const Image = './image.js';
+
+class Good extends Sequelize.Model {
+  get images() {
+    return this.getImages();
+  }
+};
 Good.init({
   name: Sequelize.STRING,
   description: Sequelize.TEXT,

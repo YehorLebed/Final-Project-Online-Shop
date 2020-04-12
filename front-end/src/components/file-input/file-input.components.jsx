@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './file-input.styles.css';
 
-const FileInput = ({ onChangeFile }) => {
-
-  const [files, setFiles] = useState([]);
+const FileInput = ({ limit, files, onFilesChanged }) => {
 
   function addFiles(newFiles) {
     const newFileList = files.slice();
     for (let file of newFiles)
-      newFileList.push(file);
-    setFiles(newFileList);
+      newFileList.length < 5 && newFileList.push(file);
+    onFilesChanged(newFileList);
   }
 
-  function removeFile(fileName) {
-    setFiles(files.filter(f => f.name !== fileName));
+  function removeFile(file) {
+    onFilesChanged(files.filter(f => f !== file));
   }
 
   return (
     <div className="file-input-container">
       <div className="file-input-info">
         {
-          files.length > 0 ? files.map(({ name }) => (
-            <div key={name}>
-              <button onClick={() => removeFile(name)}>x</button>
-              {name}
+          files.length > 0 ? files.map((file, idx) => (
+            <div className="file-input-info-item" key={file.name + idx}>
+              <button onClick={() => removeFile(file)}>&#x2715;</button>
+              {file.name}
             </div>
           )) : "No File Choosen"
         }
       </div>
+
+      <div className="limit-msg">Choose files, limit: <span>{limit}</span></div>
 
       <div className="file-input-bottom btn btn-primary">
         <input multiple type="file" className="file-input" id="file-input" onChange={e => addFiles(e.target.files)} />
@@ -38,13 +38,3 @@ const FileInput = ({ onChangeFile }) => {
 }
 
 export default FileInput;
-
-/* {
-          files.length > 0 ? files.map(({ name }) => (
-            <div key={name}>
-              {name}
-              <button onClick={() => removeFile(name)}>x</button>
-            </div>
-          )) : "Choose files"
-        }
-         */

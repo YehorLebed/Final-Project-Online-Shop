@@ -7,6 +7,7 @@ import store from './redux/store';
 
 import App from './app';
 
+store.subscribe(() => console.log(store.getState()))
 
 ReactDOM.render(
   <BrowserRouter>

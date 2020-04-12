@@ -9,24 +9,27 @@ const goodControllers = {
     return goods;
   },
 
-  async getOneGood(query) {
-    const good = await Good.findOne(query);
-    if (!good) throw new Error('No good found by this filer');
+  async getOneGood({id}) {
+    const good = await Good.findOne({ where: { id: id } });
+    if (!good) throw new Error(`No good found by this id: ${id}`);
     return good;
   },
 
   async createGood({ good }) {
-    const goodExists = await Good.findOne({ where: { name: good.name } });
+    const { images, ...goodInf } = good;
+
+    const goodExists = await Good.findOne({ where: { name: goodInf.name } });
     if (goodExists) throw new Error('Good with this name already exists');
-    const newGood = await Good.create(good);
-    await newGood.createImage({ fileName: good.imageFileName });
+    const newGood = await Good.create(goodInf);
+    images.forEach(async ({ filename, originalname }) =>
+      await newGood.createImage({ filename, originalname }));
     return newGood;
   },
 
   goodSchema: {
 
     typeQuery: `
-      getOneGood(query: String): Good
+      getOneGood(id: Int): Good
       getGoods: [Good]
     `,
 
@@ -39,7 +42,7 @@ const goodControllers = {
         name: String,
         description: String
         price: Float
-        imageFileName: String
+        images: [ImageInput]
       }
     `,
 

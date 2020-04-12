@@ -3,48 +3,69 @@ import React, { useState } from 'react';
 import { FileInput } from '../../components';
 import { InputField } from '../../components';
 
+import { connect } from 'react-redux';
+import { actionAddNewItem } from '../../redux/admin/admin.actions';
+
 import './admin-add-item-page.styles.css'
 
-const AdminAddItemPage = () => {
+const AdminAddItemPage = ({ onAddNewItem }) => {
 
-  const [image, setImage] = useState('');
-  const [goodName, setGoodName] = useState('');
-  const [goodDescription, setGoodDescription] = useState('');
-  const [goodPrice, setGoodPrice] = useState(0);
+  const [files, setFiles] = useState([]);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState(0);
+
+  function onSave() {
+    files.length >= 1 &&
+      name.trim().length !== 0 &&
+      description.trim().length !== 0 &&
+      price !== 0 &&
+      onAddNewItem(files, { name, description, price });
+  }
+
+  function clearFields() {
+
+  }
 
   return (
     <div className="add-item-page">
 
-      <FileInput onChangeFile={imgName => setImage(imgName)} />
+      <FileInput limit={5} files={files} onFilesChanged={files => setFiles(files)} />
 
       <InputField
         name={'name'}
-        value={goodName}
+        value={name}
         label="Product Name:"
-        onChange={name => setGoodName(name)}
+        onChange={name => setName(name)}
       />
 
       <InputField
         name={'description'}
-        value={goodDescription}
+        value={description}
         label="Product Description:"
-        onChange={descr => setGoodDescription(descr)}
+        onChange={description => setDescription(description)}
       />
 
       <InputField
         name={'price'}
-        value={goodPrice}
+        value={price}
         label="Product Price:"
         onChange={price => {
           price = +price;
-          price >= 0 && !isNaN(price) && setGoodPrice(+price)
+          price >= 0 && !isNaN(price) && setPrice(+price);
         }}
       />
 
-      <button className="btn btn-primary">Save</button>
-      <button className="btn btn-warning">Сancel</button>
+      <button className="btn btn-primary"
+        onClick={() => {
+          onSave();
+          
+        }}>
+        Save
+      </button>
+      <button className="btn btn-warning" onClick={clearFields}>Сancel</button>
     </div>
   );
 }
 
-export default AdminAddItemPage;
+export default connect(null, { onAddNewItem: actionAddNewItem })(AdminAddItemPage);

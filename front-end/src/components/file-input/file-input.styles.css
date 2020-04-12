@@ -1,7 +1,8 @@
 .file-input-info {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding: 15px 25px;
   flex-direction: column;
   background: var(--light);
   border: 1px solid var(--gray);
@@ -33,4 +34,30 @@
   margin: 0 auto;
   min-height: 50px;
   position: relative;
+}
+
+.file-input-info-item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.file-input-info-item button {
+  width: 32px;
+  height: 32px;
+  margin: 0 5px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--secondary);
+  color: #fff;
+  border: none;
+}
+
+.limit-msg {
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.limit-msg span{
+
 }
