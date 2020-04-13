@@ -6,24 +6,26 @@ import { Link } from 'react-router-dom';
 
 import './item.styles.css';
 
-const Item = ({ id, imgSrc, title, text, price, onAddToCart }) => {
+const Item = ({ item, onAddToCart }) => {
+  const { id, name, description, price } = item;
+  const { filename, originalfilename } = item.images[0];
 
   return (
     <div className="item">
       <div className="card">
-        <img src={imgSrc} className="card-img-top" alt="item" />
+        <img src={`http://localhost:4000/images/${filename}`} className="card-img-top" alt={originalfilename} />
         <div className="card-body">
-          <h5 className="card-title">{title}</h5>
-          <pre className="card-text">{text}</pre>
+          <h5 className="card-title">{name}</h5>
+          <p className="card-text text-break">{description}</p>
           <h4 className="cart-price">${price}</h4>
-          <Link to="/cart">
-            <button className="btn btn-warning" onClick={() => onAddToCart(id, title, price)}>
-              Add to cart
-          </button>
-          </Link>
-          <Link to={`/item/${id}`}>
-            <button className="btn btn-primary">More info</button>
-          </Link>
+          <div className="buttons-container">
+            <Link to="/cart">
+              <button className="btn btn-warning" onClick={() => onAddToCart(id, name, price)}>Add to cart</button>
+            </Link>
+            <Link to={`/item/${id}`}>
+              <button className="btn btn-primary">More info</button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

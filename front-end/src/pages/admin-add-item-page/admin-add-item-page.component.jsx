@@ -3,12 +3,15 @@ import React, { useState } from 'react';
 import { FileInput } from '../../components';
 import { InputField } from '../../components';
 
+import { Redirect } from 'react-router-dom'
+
 import { connect } from 'react-redux';
 import { actionAddNewItem } from '../../redux/admin/admin.actions';
 
 import './admin-add-item-page.styles.css'
 
-const AdminAddItemPage = ({ onAddNewItem }) => {
+const AdminAddItemPage = ({ upload, history, onAddNewItem }) => {
+
 
   const [files, setFiles] = useState([]);
   const [name, setName] = useState('');
@@ -16,16 +19,20 @@ const AdminAddItemPage = ({ onAddNewItem }) => {
   const [price, setPrice] = useState(0);
 
   function onSave() {
-    files.length >= 1 &&
+    if (files.length >= 1 &&
       name.trim().length !== 0 &&
       description.trim().length !== 0 &&
-      price !== 0 &&
+      price !== 0) {
       onAddNewItem(files, { name, description, price });
+    }
   }
 
   function clearFields() {
 
   }
+
+  if (upload && upload.hasOwnProperty('createGood'))
+    return <Redirect to={`/item/${upload.createGood.id}`} />;
 
   return (
     <div className="add-item-page">
@@ -59,7 +66,7 @@ const AdminAddItemPage = ({ onAddNewItem }) => {
       <button className="btn btn-primary"
         onClick={() => {
           onSave();
-          
+
         }}>
         Save
       </button>
@@ -68,4 +75,8 @@ const AdminAddItemPage = ({ onAddNewItem }) => {
   );
 }
 
-export default connect(null, { onAddNewItem: actionAddNewItem })(AdminAddItemPage);
+const mapStateToProps = state => ({
+  upload: state.responsedData && state.responsedData['upload'] && state.responsedData['upload'].payload
+})
+
+export default connect(mapStateToProps, { onAddNewItem: actionAddNewItem })(AdminAddItemPage);

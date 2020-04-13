@@ -1,5 +1,4 @@
 const { Good } = require('../models');
-const { image } = require('./image');
 
 const goodControllers = {
 

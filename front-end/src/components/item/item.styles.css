@@ -3,8 +3,23 @@
 } 
 .item .card {
   width: 16rem;
+  min-height: 380px;
+  max-height: 380px;
+  height: 380px;
+  position: relative;
 }
 
 .item button:first-of-type {
   margin-right: 10px;
+}
+
+.item .card-text {
+  min-height: 70px;
+  max-height: 70px;
+  height: 70px;
+  overflow: hidden;
+}
+
+.item .card-img-top {
+  max-height: 140px;
 }

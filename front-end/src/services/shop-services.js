@@ -3,7 +3,8 @@ import {
   queryLogin,
   mutationRegistration,
   mutationCreateGood,
-  queryGetOneGood
+  queryGetOneGood,
+  queryGetAllGoods
 } from './graphql-requests';
 
 const URL = 'http://localhost:4000';
@@ -41,6 +42,13 @@ export default class ShopServices {
     GraphQlHelper.user.request(queryGetOneGood, { id }).then(data => {
       if ("errors" in data) throw new Error(data.errors);
       const res = data.getOneGood;
+      return res;
+    });
+
+  static getAllGoods = () =>
+    GraphQlHelper.user.request(queryGetAllGoods).then(data => {
+      if ("errors" in data) throw new Error(data.errors);
+      const res = data.getGoods;
       return res;
     });
 }
