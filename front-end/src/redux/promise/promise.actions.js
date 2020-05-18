@@ -16,9 +16,9 @@ export const actionPromise = (name, promise) => {
       return payload;
     }
     catch (error) {
-      const message = error.hasOwnProperty('message')
-        ? error.message
-        : error.response.errors[0].message;
+      const message = error.hasOwnProperty('response')
+        ? error.response.errors[0].message
+        : error.message;
       dispatch(actionRejected(error));
       dispatch(actionSetError(name, message));
     }

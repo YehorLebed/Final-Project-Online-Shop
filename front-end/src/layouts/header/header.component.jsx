@@ -4,7 +4,7 @@ import { actionLogout } from '../../redux/user/auth.actions'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { SearchForm } from '../../components';
+import { FilterInput } from '../../components';
 import './header.styles.css';
 
 const Header = ({ userLogin, onLogout }) => {
@@ -17,7 +17,7 @@ const Header = ({ userLogin, onLogout }) => {
     <header className="header sticky-top">
       <nav className="container">
         <Link to="/"><h3 className="logo">Online Store</h3></Link>
-        <SearchForm />
+        <FilterInput />
         {userStatusField}
       </nav>
     </header>

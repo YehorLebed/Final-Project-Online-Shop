@@ -1,0 +1,17 @@
+.cart-table {
+  margin-bottom: 75px;
+}
+
+.total {
+  padding-top: 5px;
+  border-top: 1px solid #c3c3c3;
+  font-size: 32px;
+  font-weight: 600;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.total-price {
+  font-weight: 400;
+  padding-left: 10px;
+}

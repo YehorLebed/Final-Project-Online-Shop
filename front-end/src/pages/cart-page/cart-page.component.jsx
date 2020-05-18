@@ -14,7 +14,7 @@ const CartPage = ({ cartData, onIncrease, onDecrease, onDelete }) => {
     content = <h2>Your Cart is Empty</h2>
   else {
     content = (<>
-      <table class="table">
+      <table class="cart-table table">
         <thead>
           <tr>
             <th scope="col">ID</th>
@@ -51,7 +51,7 @@ const CartPage = ({ cartData, onIncrease, onDecrease, onDelete }) => {
         </tbody>
       </table>
       <div className="total">
-        {total}грн.
+        Total:<span className="total-price">{total}грн.</span>
       </div>
     </>);
   }

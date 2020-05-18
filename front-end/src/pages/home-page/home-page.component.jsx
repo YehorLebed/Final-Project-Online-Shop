@@ -29,3 +29,5 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+
+// Добавить в .gitignore public/images/ ...
