@@ -9,7 +9,8 @@ const { User } = require('../models');
 const userControllers = require('./user');
 const goodControllers = require('./good');
 const imageControllers = require('./image');
-
+const orderControllers = require('./order');
+const GoodToOrdersControllers = require('./goodToOrder');
 
 
 // Schema
@@ -19,22 +20,30 @@ const schema = buildSchema(`
     ${userControllers.userSchema.typeMutation}
     ${goodControllers.goodSchema.typeMutation}
     ${imageControllers.imageSchema.typeMutation}
+    ${orderControllers.orderSchema.typeMutation}
   }
 
   type Query {
     ${userControllers.userSchema.typeQuery}
     ${goodControllers.goodSchema.typeQuery}
     ${imageControllers.imageSchema.typeQuery}
+    ${orderControllers.orderSchema.typeQuery}
   }
 
   ${userControllers.userSchema.typeUser}
   ${goodControllers.goodSchema.typeGood}
   ${imageControllers.imageSchema.typeImage}
+  ${orderControllers.orderSchema.typeOrder}
+  ${GoodToOrdersControllers.typeGoodToOrder}
+
 
 
   ${userControllers.userSchema.typeUserInput}
   ${goodControllers.goodSchema.typeGoodInput}
   ${imageControllers.imageSchema.typeImageInput}
+  ${orderControllers.orderSchema.typeOrderInput}
+  ${GoodToOrdersControllers.typeGoodToOrderInput}
+
 `);
 
 
@@ -45,9 +54,16 @@ const root = {
   login: userControllers.login,
 
   // Good
-  createGood: goodControllers.createGood,
-  getOneGood: goodControllers.getOneGood,
   getGoods: goodControllers.getGoods,
+  getOneGoodById: goodControllers.getOneGoodById,
+  getGoodsByName: goodControllers.getGoodsByName,
+  createGood: goodControllers.createGood,
+
+  // Order
+  getOrderById: orderControllers.getOrderById,
+  getOrders: orderControllers.getOrders,
+  getOrdersByUserId: orderControllers.getOrdersByUserId,
+  createOrder: orderControllers.createOrder,
 };
 
 

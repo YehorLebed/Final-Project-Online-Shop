@@ -10,7 +10,11 @@ import './header.styles.css';
 const Header = ({ userLogin, onLogout }) => {
 
   const userStatusField = userLogin
-    ? (<><span>{userLogin}</span><button onClick={onLogout} className="btn btn-warning">Logout</button></>)
+    ? (<>
+      <Link to="/orders"><button className="btn btn-warning">My Orders</button></Link>
+      <span>{userLogin}</span>
+      <button onClick={onLogout} className="btn btn-warning">Logout</button>
+    </>)
     : (<Link to="/sign"><button className="btn btn-warning">Login/Register</button></Link>)
 
   return (
@@ -18,7 +22,11 @@ const Header = ({ userLogin, onLogout }) => {
       <nav className="container">
         <Link to="/"><h3 className="logo">Online Store</h3></Link>
         <FilterInput />
+        <Link to="/cart"><button className="btn btn-warning">Cart</button></Link>
         {userStatusField}
+        <span>Admin:</span>
+        <Link to="/admin/add-item"><button className="btn btn-danger">New Item</button></Link>
+        <Link to="/admin/orders"><button className="btn btn-danger">Manage Orders</button></Link>
       </nav>
     </header>
   );

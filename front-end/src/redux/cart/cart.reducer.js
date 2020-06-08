@@ -23,27 +23,41 @@ function newStateWithUpdatedItemQuantity(state, itemIndex, quantity) {
 const cartReducer = (state = INITIAL_STATE, action) => {
 
   if (action.type === cartTypes.ADD_TO_CART) {
+    let newCart;
     const indexItemExist = state.cartList.findIndex(item => item.id === action.id);
-    if (indexItemExist !== -1)
-      return newStateWithUpdatedItemQuantity(state, indexItemExist, 1);
-
-    const { id, name, price } = action;
-    return {
-      cartList: [...state.cartList, { id, name, price, quantity: 1 }],
-      total: state.total += +price
-    };
+    if (indexItemExist !== -1) {
+      newCart = newStateWithUpdatedItemQuantity(state, indexItemExist, 1);
+    }
+    else {
+      const { id, name, price } = action;
+      newCart = { cartList: [...state.cartList, { id, name, price, quantity: 1 }], total: state.total += +price };
+    }
+    localStorage.cart = JSON.stringify(newCart);
+    return newCart
   }
 
   if (action.type === cartTypes.REMOVE_FROM_CART) {
     const indexItemExist = state.cartList.findIndex(item => item.id === action.id);
-    if (indexItemExist !== -1)
-      return newStateWithUpdatedItemQuantity(state, indexItemExist, -1)
+    if (indexItemExist !== -1) {
+      const newCart = newStateWithUpdatedItemQuantity(state, indexItemExist, -1);
+      localStorage.cart = JSON.stringify(newCart);
+      return newCart;
+    }
   }
 
   if (action.type === cartTypes.DELETE_FROM_CART) {
     const indexItemExist = state.cartList.findIndex(item => item.id === action.id);
-    if (indexItemExist !== -1)
-      return newStateWithUpdatedItemQuantity(state, indexItemExist, -state.cartList[indexItemExist].quantity);
+    if (indexItemExist !== -1) {
+      const newCart = newStateWithUpdatedItemQuantity(state, indexItemExist, -state.cartList[indexItemExist].quantity);
+      localStorage.cart = JSON.stringify(newCart);
+      return newCart;
+    }
+  }
+
+  if (action.type === cartTypes.SET_SAVED_CART) {
+    const { cart } = action;
+    if (cart.hasOwnProperty('cartList') && cart.hasOwnProperty('total'))
+      return { cartList: cart.cartList, total: cart.total };
   }
 
   return state;

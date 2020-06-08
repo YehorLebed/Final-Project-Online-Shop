@@ -1,4 +1,5 @@
 const { Good } = require('../models');
+const { Op } = require('sequelize');
 
 const goodControllers = {
 
@@ -8,10 +9,17 @@ const goodControllers = {
     return goods;
   },
 
-  async getOneGood({id}) {
+  async getOneGoodById({ id }) {
     const good = await Good.findOne({ where: { id: id } });
     if (!good) throw new Error(`No good found by this id: ${id}`);
     return good;
+  },
+
+  async getGoodsByName({ name }) {
+    console.log(1111111);
+    const goods = await Good.findAll({ where: { name: { [Op.like]: '%' + name + '%' } } });
+    if (!goods) throw new Error(`No good found by this name: ${name}`);
+    return goods;
   },
 
   async createGood({ good }) {
@@ -28,7 +36,8 @@ const goodControllers = {
   goodSchema: {
 
     typeQuery: `
-      getOneGood(id: Int): Good
+      getOneGoodById(id: Int): Good
+      getGoodsByName(name: String): [Good]
       getGoods: [Good]
     `,
 
@@ -38,6 +47,7 @@ const goodControllers = {
 
     typeGoodInput: `
       input GoodInput {
+        id: Int,
         name: String,
         description: String
         price: Float

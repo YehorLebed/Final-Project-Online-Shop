@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../db.setup');
 
-const Image = './image.js';
+const { GoodToOrder } = require('../models');
 
 class Good extends Sequelize.Model {
   get images() {

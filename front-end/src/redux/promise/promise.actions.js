@@ -16,6 +16,7 @@ export const actionPromise = (name, promise) => {
       return payload;
     }
     catch (error) {
+      console.error(error);
       const message = error.hasOwnProperty('response')
         ? error.response.errors[0].message
         : error.message;

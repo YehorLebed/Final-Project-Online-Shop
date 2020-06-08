@@ -3,9 +3,7 @@
 } 
 .item .card {
   width: 16rem;
-  min-height: 380px;
   max-height: 380px;
-  height: 380px;
   position: relative;
 }
 

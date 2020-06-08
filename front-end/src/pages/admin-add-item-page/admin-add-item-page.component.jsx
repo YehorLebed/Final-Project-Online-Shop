@@ -3,15 +3,19 @@ import React, { useState } from 'react';
 import { FileInput } from '../../components';
 import { InputField } from '../../components';
 
+import { useHistory } from 'react-router-dom';
+
 import { Redirect } from 'react-router-dom'
 
 import { connect } from 'react-redux';
 import { actionAddNewItem } from '../../redux/admin/admin.actions';
+import { actionClear } from '../../redux/promise/promise.actions';
 
 import './admin-add-item-page.styles.css'
 
-const AdminAddItemPage = ({ upload, history, onAddNewItem }) => {
+const AdminAddItemPage = ({ upload, onAddNewItem, onClear }) => {
 
+  const history = useHistory();
 
   const [files, setFiles] = useState([]);
   const [name, setName] = useState('');
@@ -31,8 +35,10 @@ const AdminAddItemPage = ({ upload, history, onAddNewItem }) => {
 
   }
 
-  if (upload && upload.hasOwnProperty('createGood'))
-    return <Redirect to={`/item/${upload.createGood.id}`} />;
+  if (upload && upload.hasOwnProperty('createGood')) {
+    history.push(`/item/${upload.createGood.id}`);
+    onClear();
+  }
 
   return (
     <div className="add-item-page">
@@ -75,8 +81,13 @@ const AdminAddItemPage = ({ upload, history, onAddNewItem }) => {
   );
 }
 
+const mapDispatchToProps = dispatch => ({
+  onAddNewItem: (images, itemInfo) => dispatch(actionAddNewItem(images, itemInfo)),
+  onClear: () => dispatch(actionClear('upload'))
+});
+
 const mapStateToProps = state => ({
   upload: state.responsedData && state.responsedData['upload'] && state.responsedData['upload'].payload
 })
 
-export default connect(mapStateToProps, { onAddNewItem: actionAddNewItem })(AdminAddItemPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminAddItemPage);

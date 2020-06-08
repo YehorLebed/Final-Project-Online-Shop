@@ -3,15 +3,17 @@ import './filter-input.styles.css';
 
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { actionSetFilterByName } from '../../redux/filter/filter.actions';
+import { actionPromise } from '../../redux/promise/promise.actions';
+import ShopServices from '../../services/shop-services';
 
 const FilterInput = ({ onFilterByName, history }) => {
   const [filter, setFilter] = useState('');
+  console.log(history);
 
   function onSubmit(e) {
     e.preventDefault();
+    // history.location.pathName !== '/' && history.push('/');
     onFilterByName(filter);
-    history.push('/');
   }
 
   return (
@@ -25,8 +27,8 @@ const FilterInput = ({ onFilterByName, history }) => {
   );
 }
 
-const mapDispatchToProps = {
-  onFilterByName: actionSetFilterByName
-};
+const mapDispatchToProps = dispatch => ({
+  onFilterByName: name => dispatch(actionPromise('itemList', ShopServices.getGoodsByName(name)))
+});
 
 export default withRouter(connect(null, mapDispatchToProps)(FilterInput));
