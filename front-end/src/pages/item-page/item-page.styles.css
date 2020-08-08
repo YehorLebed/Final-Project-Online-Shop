@@ -18,7 +18,7 @@
 .item-page-main-info {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 50%;
   padding-left: 50px;
@@ -58,5 +58,9 @@
 .description-heading {
   font-size: 1.775rem;
   font-weight: 400;
+}
+
+.description-heading:not(:first-of-type) {
+  padding-top: 50px;
 }
 

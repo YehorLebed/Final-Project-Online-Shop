@@ -19,9 +19,9 @@ const FileInput = ({ limit, files, onFilesChanged }) => {
       <div className="file-input-info">
         {
           files.length > 0 ? files.map((file, idx) => (
-            <div className="file-input-info-item" key={file.name + idx}>
+            <div className="file-input-info-item" key={file.name || file.originalname + idx}>
               <button onClick={() => removeFile(file)}>&#x2715;</button>
-              {file.name}
+              {file.name || file.originalname}
             </div>
           )) : "No File Choosen"
         }

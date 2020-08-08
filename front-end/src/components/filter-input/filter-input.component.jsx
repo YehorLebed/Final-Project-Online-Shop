@@ -4,7 +4,7 @@ import './filter-input.styles.css';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actionPromise } from '../../redux/promise/promise.actions';
-import ShopServices from '../../services/shop-services';
+import ShopServices from '../../services/shopServices';
 
 const FilterInput = ({ onFilterByName, history }) => {
   const [filter, setFilter] = useState('');
@@ -22,7 +22,7 @@ const FilterInput = ({ onFilterByName, history }) => {
         <input type="text" className="form-control" placeholder="Search..."
           value={filter} onChange={(e) => setFilter(e.target.value)} />
       </div>
-      <button type="submit" className="btn btn-light">Search</button>
+      <button type="submit" className="btn btn-dark">Search</button>
     </form>
   );
 }

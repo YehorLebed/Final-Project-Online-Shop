@@ -3,7 +3,7 @@ import { InputField } from '../../components';
 import { connect } from 'react-redux';
 import { actionAddToCart, actionDeleteFromCart, actionRemoveFromCart } from '../../redux/cart/cart.actions';
 import { actionPromise } from '../../redux/promise/promise.actions';
-import ShopService from '../../services/shop-services';
+import ShopService from '../../services/shopServices';
 
 import './cart-page.styles.css';
 

@@ -4,16 +4,15 @@ const cors = require('cors');
 const path = require('path');
 const uploadPath = path.join(__dirname, 'public', 'images');
 const upload = require('multer')({ dest: uploadPath });
-const jwtHelper = require('./controllers/jwt-helper');
 
 // DB
-const sequelize = require('./db.setup');
+const sequelize = require('./util/db.setup');
 
 // GraphQL
 const express_graphql = require('express-graphql');
 const graphQlControllers = require('./controllers');
 
-const imageController = require('./controllers/image');
+// const imageController = require('./controllers/image');
 
 
 const app = express();
@@ -32,6 +31,7 @@ app.post('/images', upload.array('images', 5), async (req, res) => {
   res.status(201).json({ "data": req.files });
 })
 
-app.listen(4000);
+app.listen(8080);
 
 sequelize.sync();
+// Express CLI

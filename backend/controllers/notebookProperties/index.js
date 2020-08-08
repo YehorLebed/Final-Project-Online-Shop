@@ -1,0 +1,5 @@
+module.exports.processorControllers = require('./processor')
+module.exports.batteryControllers = require('./battery')
+module.exports.displayControllers = require('./display')
+module.exports.ramControllers = require('./ram')
+module.exports.romControllers = require('./rom')

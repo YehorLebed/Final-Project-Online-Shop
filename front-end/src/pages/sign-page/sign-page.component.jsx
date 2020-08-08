@@ -7,7 +7,7 @@ const SignPage = ({ onLogin, onRegistration }) => {
 
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  
+
   return (
     <div className="sign-page">
       <div className="form-group">
@@ -23,7 +23,7 @@ const SignPage = ({ onLogin, onRegistration }) => {
       </div>
 
       <button className="btn btn-primary" onClick={() => onLogin(login, password)}>Login</button>
-      <button className="btn btn-warning" onClick={() => onRegistration(login, password)}>Register</button>
+      <button className="btn btn-warning" onClick={() => onRegistration({ login, password })}>Register</button>
     </div>
   );
 };

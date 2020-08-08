@@ -3,7 +3,6 @@
 } 
 .item .card {
   width: 16rem;
-  max-height: 380px;
   position: relative;
 }
 
@@ -16,8 +15,4 @@
   max-height: 70px;
   height: 70px;
   overflow: hidden;
-}
-
-.item .card-img-top {
-  max-height: 140px;
 }

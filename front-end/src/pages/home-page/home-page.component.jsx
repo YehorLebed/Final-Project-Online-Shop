@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { ItemList } from '../../components';
 import { connect } from 'react-redux';
-import ShopServices from '../../services/shop-services';
+import ShopServices from '../../services/shopServices';
 import { actionPromise } from '../../redux/promise/promise.actions';
 
 
@@ -15,7 +15,7 @@ const HomePage = ({ itemList, onLoad }) => {
   if (!itemList) return "Loading";
 
   return (<>
-    <h1 className="home-page">Home-page</h1>
+    <h1 className="home-page">Catalog:</h1>
     <ItemList items={itemList} />
   </>);
 };
@@ -25,7 +25,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: () => dispatch(actionPromise('itemList', ShopServices.getAllGoods()))
+  onLoad: () => dispatch(actionPromise('itemList', ShopServices.getNotebooks()))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

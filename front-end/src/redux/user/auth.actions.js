@@ -1,4 +1,4 @@
-import ShopServices from '../../services/shop-services';
+import ShopServices from '../../services/shopServices';
 import { actionPromise, actionClear } from '../promise/promise.actions';
 import authTypes from './auth.types';
 
@@ -6,19 +6,19 @@ import authTypes from './auth.types';
 export const authLogin = token => ({ type: authTypes.LOGIN, token });
 const authLogout = () => ({ type: authTypes.LOGOUT });
 
-const actionRegistration = (login, password) => async (dispatch) => {
-  const registrationResult = await dispatch(actionPromise('registration', ShopServices.registration(login, password)));
+const actionRegistration = user => async (dispatch) => {
+  const registrationResult = await dispatch(actionPromise('registration', ShopServices.createUser(user)));
   return registrationResult;
 }
 
 export const actionLogin = (login, password) => async (dispatch) => {
   const data = await dispatch(actionPromise('login', ShopServices.login(login, password)));
-  if (data) dispatch(authLogin(data.login));
+  if (data) dispatch(authLogin(data));
 }
 
 export const actionRegistrationAndLogin = (login, password) => async (dispatch) => {
-  const isRegistrationSuccess = await dispatch(actionRegistration(login, password));
-  if (isRegistrationSuccess) dispatch(actionLogin(login, password));
+  const data = await dispatch(actionRegistration(login, password));
+  if (data) dispatch(authLogin(data));
 }
 
 export const actionLogout = () => async (dispatch) => {

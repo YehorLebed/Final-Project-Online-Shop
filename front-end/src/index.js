@@ -6,13 +6,16 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 
 import App from './app';
+import ErrorBoundry from './app/errorBoundry';
 
 store.subscribe(() => console.log(store.getState()))
 
 ReactDOM.render(
   <BrowserRouter>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <ErrorBoundry>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ErrorBoundry>
   </BrowserRouter>,
   document.getElementById('root'));

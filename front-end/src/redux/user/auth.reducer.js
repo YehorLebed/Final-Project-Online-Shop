@@ -1,6 +1,6 @@
 import authTypes from './auth.types';
 import jwt_decode from 'jwt-decode';
-import GraphQlHelper from '../../services/graphql-helper';
+import GraphQlHelper from '../../services/gqlHelper';
 
 const INITIAL_STATE = {};
 

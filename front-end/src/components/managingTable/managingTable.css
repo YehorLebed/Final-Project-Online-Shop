@@ -1,0 +1,8 @@
+.managingTable td {
+  min-width: 50px;
+}
+
+.managingTableTools {
+  margin-bottom: 50px;
+  padding-top: 20px;
+}

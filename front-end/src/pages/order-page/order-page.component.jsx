@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { actionPromise } from '../../redux/promise/promise.actions';
-import ShopService from '../../services/shop-services';
+import ShopService from '../../services/shopServices';
 
 import './order-page.style.css';
 

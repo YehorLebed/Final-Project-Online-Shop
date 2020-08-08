@@ -1,10 +1,26 @@
 import React, { useState } from 'react';
+import { URL } from '../../services/shopServices';
 
 import './corousel.styles.css';
 
 const Carousel = ({ images }) => {
-
   const [indexActive, setIndexActive] = useState(0);
+  // const [fileImagesURL, setFileImagesURL] = useState();
+
+  // if (images) {
+  //   const data = images.map((image, idx) => {
+  //     if (!image.filename && !image.originalname)
+  //       return { image, idx }
+  //   });
+  //   const files = data.filter(v => v);
+
+  //   Promise.all(files.map((file, idx) => new Promise((resolve, reject) => {
+  //     const reader = new FileReader();
+  //     reader.addEventListener('load', (ev) => resolve({ url: ev.target.result, idx }));
+  //     reader.addEventListener('error', reject);
+  //     reader.readAsDataURL(file);
+  //   }))).then(res => setFileImagesURL(res));
+  // }
 
   function nextSlide() {
     indexActive !== images.length - 1
@@ -22,9 +38,9 @@ const Carousel = ({ images }) => {
     <div className="carousel slide" >
       <div className="carousel-inner">
         {
-          images.map(({ filename, originalname }, index) => (
-            <div key={filename} className={`carousel-item ${index === indexActive && "active"}`}>
-              <img src={`http://localhost:4000/images/${filename}`} className="d-block w-100" alt={originalname} />
+          images.map((i, index) => (
+            <div key={i.filename || i.name} className={`carousel-item ${index === indexActive && "active"}`}>
+              <img src={(i.filename && `${URL}/images/${i.filename}`) || i.url} className="d-block w-100" alt={i.originalname || i.name} />
             </div>
           ))
         }

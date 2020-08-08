@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-
-import { authLogin } from '../redux/user/auth.actions';
-import { actionSetSavedCart } from '../redux/cart/cart.actions';
 import { connect } from 'react-redux';
 import { Header, Content, Footer } from '../layouts';
-
+import { authLogin } from '../redux/user/auth.actions';
+import { actionSetSavedCart } from '../redux/cart/cart.actions';
+import { Redirect } from 'react-router-dom';
+import { Page404 } from '../pages';
 
 
 const App = ({ onLoadAuth, onLoadSetCart }) => {

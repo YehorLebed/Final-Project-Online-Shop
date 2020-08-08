@@ -1,75 +1,122 @@
-const { Order, User, Good } = require('../models');
+const { Order, Notebook, NotebookToOrder } = require('../models');
 
 const orderControllers = {
+  root: {
+    async getOrders() {
+      try {
+        const orders = await Order.findAll();
+        if (!orders) throw new Error('No orders found');
+        return orders;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    },
 
-  async getOrders() {
-    const orders = await Order.findAll();
-    if (!orders) throw new Error('No orders found');
-    return orders;
+    async getOrderById({ id }) {
+      try {
+        const order = await Order.findByPk(id);
+        if (!order) throw new Error(`no orders found by id: ${id}`);
+        return order;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    },
+
+    async getOrdersByUserId({ userId }) {
+      try {
+        const orders = await Order.findAll({ where: { userId: userId } });
+        if (!orders) throw new Error(`no orders found by userId: ${userId}`);
+        return orders;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    },
+
+    async createOrder({ order }) {
+      const { notebooks, ...orderInf } = order;
+      try {
+        const newOrder = await Order.create(orderInf);
+        notebooks.forEach(async ({ id, price, quantity }) => {
+          const notebook = await Notebook.findOne({ where: { id: id } });
+          await newOrder.addNotebook(notebook, { through: { price, quantity } });
+        });
+        return newOrder;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    },
+
+    async updateOrder({ order }) {
+      const { notebooks, ...orderInf } = order;
+      try {
+        const orderToUpdate = await Order.findByPk(orderInf.id);
+        await NotebookToOrder.destroy({ where: { orderId: orderInf.id } });
+
+        notebooks.forEach(async ({ id, price, quantity }) => {
+          const notebook = await Notebook.findOne({ where: { id: id } });
+          await orderToUpdate.addNotebook(notebook, { through: { price, quantity } });
+        });
+        return newOrder;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    },
+
+    async deleteOrderById({ id }) {
+      try {
+        const deletedId = await Order.destroy({ where: { id } });
+        return deletedId
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    }
   },
 
-  async getOrderById({ id }) {
-    const order = await Order.findOne({ where: { id: id } });
-    if (!order) throw new Error(`no orders found by id: ${id}`);
-    return order;
-  },
+  schema: {
+    type: `
+      type Order {
+        id: Int,
+        user: User,
+        total: Float,
+        name: String,
+        phone: String,
+        email: String,
+        address: String,
+        createdAt: String,
+        notebooks: [NotebookToOrder]
+      }
+    `,
 
-  async getOrdersByUserId({ userId }) {
-    const orders = await Order.findAll({ where: { userId: userId } });
-    if (!orders) throw new Error(`no orders found by userId: ${userId}`);
-    return orders;
-  },
-
-  async createOrder({ order }) {
-    console.log('order:', order);
-    const { goods, ...orderInf } = order;
-
-    const newOrder = await Order.create(orderInf);
-    goods.forEach(async ({ id, price, quantity }) => {
-      const good = await Good.findOne({ where: { id: id } });
-      const res = await newOrder.addGood(good, { through: { price, quantity } });
-      console.log(res);
-    });
-    return newOrder;
-  },
-
-
-  orderSchema: {
+    typeInput: `
+      input OrderInput {
+        id: Int,
+        user: UserInput,
+        total: Float,
+        name: String,
+        phone: String,
+        email: String,
+        address: String,
+        notebooks: [NotebookToOrderInput]
+      }
+    `,
 
     typeQuery: `
-      getOrderById(id: Int): Order
       getOrdersByUserId(userId: Int): [Order]
+      getOrderById(id: Int): Order
       getOrders: [Order]
     `,
 
     typeMutation: `
       createOrder(order: OrderInput): Order
+      updateOrder(order: OrderInput): Order
+      deleteOrderById(id: Int): Int
     `,
-
-    typeOrderInput: `
-      input OrderInput {
-        name: String,
-        phone: String,
-        email: String,
-        address: String,
-        userId: Int,
-        goods: [GoodToOrderInput]
-      }
-    `,
-
-    typeOrder: `
-      type Order {
-        id: Int,
-        createdAt: String,
-        name: String,
-        phone: String,
-        email: String,
-        address: String,
-        userId: Int,
-        total: Float,
-        goods: [GoodToOrder]
-      }
-    `
   }
 }
 
